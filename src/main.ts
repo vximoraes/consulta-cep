@@ -6,6 +6,7 @@ const numeroInput = document.querySelector<HTMLInputElement>('#numero')!;
 const bairroInput = document.querySelector<HTMLInputElement>('#bairro')!;
 const estadoSelect = document.querySelector<HTMLSelectElement>('#estados')!;
 const cidadeSelect = document.querySelector<HTMLSelectElement>('#cidades')!;
+const copiarBtn = document.querySelector<HTMLButtonElement>('#copiar')!;
 
 popularEstados();
 
@@ -30,6 +31,7 @@ async function atualizarCidades() {
     if (!estadoSelect.value) return;
     try {
         const cidades = await obterCidades(estadoSelect.value);
+        cidadeSelect.options.length = 1;
         cidades.forEach(({ nome }: { nome: string }) => {
             const option = document.createElement('option');
             option.value = nome;
@@ -54,6 +56,27 @@ async function preencherEnderecoPorCep() {
         console.error('CEP não encontrado.');
     }
 }
+
+copiarBtn.addEventListener('click', async () => {
+    const lines = [
+        `CEP: ${cepInput.value || ''}`,
+        `Logradouro: ${logradouroInput.value || ''}`,
+        `Número: ${numeroInput.value || ''}`,
+        `Bairro: ${bairroInput.value || ''}`,
+        `Cidade: ${cidadeSelect.value || ''}`,
+        `Estado: ${estadoSelect.value || ''}`,
+    ];
+    const text = lines.join('\n');
+    try {
+        await navigator.clipboard.writeText(text);
+        const prev = copiarBtn.textContent;
+        copiarBtn.textContent = 'Copiado!';
+        setTimeout(() => (copiarBtn.textContent = prev ?? 'Copiar'), 1500);
+    } catch (err) {
+        console.error('Erro ao copiar:', err);
+        alert('Não foi possível copiar para a área de transferência.');
+    }
+});
 
 // Funções utilitárias de requisição.
 
