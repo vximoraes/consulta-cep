@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/consulta-cep/', // Caminho base para deploy no GitHub Pages
+  base: '/', // Custom domain serves the app at the domain root
 });
