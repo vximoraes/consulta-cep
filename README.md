@@ -1,5 +1,5 @@
 # Consulta CEP
-Consultar de endereços a partir de CEPs brasileiros consumindo APIs públicas.
+Consulta de endereços a partir de CEPs brasileiros consumindo APIs públicas.
 
 ![consulta-cep-dark](./public/consulta-cep-dark.png)
 ![consulta-cep-light](./public/consulta-cep-light.png)
